@@ -1,0 +1,30 @@
+CREATE TABLE colecao (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(60) DEFAULT NULL,
+  tamanho INT NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE carrinho (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(60) DEFAULT NULL,
+  posicao_Colecao VARCHAR(2) NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
+  colecaoId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (colecaoId) REFERENCES colecao (id)
+);
+
+INSERT INTO colecao (nome, tamanho) VALUES 
+  ('HW EXOTICS', 10),
+  ('HW SCREEN TIME', 10);
+
+INSERT INTO carrinho (nome, posicao_Colecao, descricao, colecaoId) VALUES 
+  ('2019 AUDI R8 SPYDER','4','', 1),
+  ('McLAREN P1','9','',1),
+  ('THE BEATLES YELLOW SUBMARINE','10','The Beatles Yellow Sub',2),
+  ("'70 CHEVELLE SS",'6','Fast & Furios',2),
+  ('THE FLINTSTONES FLINTMOBILE','4','The Flintstones',2),
+  ('MINECART','2','Minecraft',2),
+  ('MINECART','7','Minecraft - Skecarrinholeton',2);
+
