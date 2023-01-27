@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -126,8 +129,37 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 
 	@Override
 	public List<Colecao> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT * FROM myhotwheels.colecao";
+
+			st = conn.prepareStatement(sql);
+			rs = st.executeQuery();
+
+			List<Colecao> list = new ArrayList<>();
+			Map<Integer,Colecao> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Colecao col = map.get(rs.getInt("id"));
+				
+				if(col==null) {
+					col = instantiateColecao(rs);
+					map.put(rs.getInt("id"), col);
+				}
+				
+				list.add(col);
+			}
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	private Colecao instantiateColecao(ResultSet rs) throws SQLException {

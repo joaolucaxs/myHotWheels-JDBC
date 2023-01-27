@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.dao.CarrinhoDAO;
 import model.dao.ColecaoDAO;
 import model.dao.FactoryDAO;
@@ -63,6 +66,22 @@ public class Program {
 
 		System.out.println("\n==== TEST 4: carrinho delete ====");
 		carrinhoDAO.deleteById(10);
+		
+		// ----------------------------------------------------------------------------//
+
+		System.out.println("\n==== TEST 5: colecao findAll ====");
+		List<Colecao> listColecao = new ArrayList<>();
+		listColecao = colecaoDAO.findAll();
+		for (Colecao colecao2 : listColecao) {
+			System.out.println(colecao2);
+		}
+		
+		System.out.println("\n==== TEST 5: carrinho findAll ====");
+		List<Carrinho> listCarrinho = new ArrayList<>();
+		listCarrinho = carrinhoDAO.findAll();
+		for (Carrinho carrinho2 : listCarrinho) {
+			System.out.println(carrinho2);
+		}
 
 	}
 

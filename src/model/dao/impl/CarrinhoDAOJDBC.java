@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -141,8 +144,40 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 
 	@Override
 	public List<Carrinho> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT myhotwheels.carrinho.*, "
+					+ "myhotwheels.colecao.nome as ColName, myhotwheels.colecao.id as ColId, myhotwheels.colecao.tamanho as ColTamanho "					+ "FROM myhotwheels.carrinho "
+					+ "JOIN myhotwheels.colecao ON myhotwheels.carrinho.colecaoId = myhotwheels.colecao.id ";
+
+			st = conn.prepareStatement(sql);
+			rs = st.executeQuery();
+
+			List<Carrinho> list = new ArrayList<>();
+			Map<Integer,Colecao> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Colecao col = map.get(rs.getInt("id"));
+				
+				if(col==null) {
+					col = instantiateColecao(rs);
+					map.put(rs.getInt("id"), col);
+				}
+				
+				Carrinho obj = instantiateCarrinho(rs, col);
+				list.add(obj);
+			}
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	private Carrinho instantiateCarrinho(ResultSet rs, Colecao col) throws SQLException {
