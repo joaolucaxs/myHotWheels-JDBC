@@ -25,7 +25,19 @@ public class Program {
 		Carrinho carrinho = carrinhoDAO.findById(5);
 		System.out.println(carrinho);
 
-
+		//----------------------------------------------------------------------------//
+		
+		System.out.println("\n==== TEST 2: colecao insert ====");
+		Colecao newColecao = new Colecao(null, "NIGHTBURNERZ", 10);
+		colecaoDAO.insert(newColecao);
+		System.out.println("Inserido, novo id = " + newColecao.getId());
+		
+		//----------------------------------------------------------------------------//
+		
+		System.out.println("\n==== TEST 2: carrinho insert ====");
+		Carrinho newCarrinho = new Carrinho("'96 CHEVROLET IMPALA SS", "2", "", newColecao);
+		carrinhoDAO.insert(newCarrinho);
+		System.out.println("Inserido, novo id = " + newCarrinho.getId());
 	}
 
 }

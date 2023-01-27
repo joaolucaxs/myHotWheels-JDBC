@@ -22,7 +22,36 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 
 	@Override
 	public void insert(Carrinho obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO carrinho " + "(nome, posicao_Colecao, descricao, colecaoId) "
+					+ "VALUES (?, ?, ?, ?) ";
+
+			st = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getPosicao_Colecao());
+			st.setString(3, obj.getDescricao());
+			st.setInt(4, obj.getColecao().getId());
+
+			int rowsAffected = st.executeUpdate();
+
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setId(id);
+				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Nenhuma linha afetada");
+			}
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
@@ -45,9 +74,10 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 
 		try {
 			String sql = "SELECT myhotwheels.carrinho.*, myhotwheels.colecao.nome as ColName FROM myhotwheels.carrinho "
-					+"JOIN myhotwheels.colecao ON myhotwheels.carrinho.colecaoId = myhotwheels.colecao.id WHERE myhotwheels.carrinho.id = ? ";
-			
-			// Sempre usar o "as" para renomear colunas se essas colunas forem iguais, pq no rs fica bugando e trazendo o primeiro que tiver
+					+ "JOIN myhotwheels.colecao ON myhotwheels.carrinho.colecaoId = myhotwheels.colecao.id WHERE myhotwheels.carrinho.id = ? ";
+
+			// Sempre usar o "as" para renomear colunas se essas colunas forem iguais, pq no
+			// rs fica bugando e trazendo o primeiro que tiver
 			st = conn.prepareStatement(sql);
 			st.setInt(1, id);
 			rs = st.executeQuery();

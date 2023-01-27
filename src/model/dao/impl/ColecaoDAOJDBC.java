@@ -13,16 +13,42 @@ import model.entities.Colecao;
 
 public class ColecaoDAOJDBC implements ColecaoDAO {
 
-	
 	private Connection conn;
 
 	public ColecaoDAOJDBC(Connection conn) {
 		this.conn = conn;
 	}
-	
+
 	@Override
 	public void insert(Colecao obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+
+		try {
+			String sql = "INSERT INTO colecao " + "(nome, tamanho) "
+					+ "VALUES (?, ?) ";
+
+			st = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getTamanho());
+
+			int rowsAffected = st.executeUpdate();
+
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setId(id);
+				}
+				DB.closeResultSet(rs);
+			} else {
+				throw new DbException("Nenhuma linha afetada");
+			}
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
@@ -45,7 +71,7 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 
 		try {
 			String sql = "SELECT * FROM myhotwheels.colecao WHERE id = ?";
-			
+
 			st = conn.prepareStatement(sql);
 			st.setInt(1, id);
 			rs = st.executeQuery();
