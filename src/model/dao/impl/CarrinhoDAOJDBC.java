@@ -179,6 +179,44 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 			DB.closeResultSet(rs);
 		}
 	}
+	
+	@Override
+	public List<Carrinho> showCarsByIdCollection(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "SELECT myhotwheels.carrinho.*, "
+					+ "myhotwheels.colecao.nome as ColName, myhotwheels.colecao.id as ColId, myhotwheels.colecao.tamanho as ColTamanho "
+					+ "FROM myhotwheels.colecao JOIN myhotwheels.carrinho ON carrinho.colecaoId = colecao.id WHERE colecao.id = ? ";
+
+			st = conn.prepareStatement(sql);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+
+			List<Carrinho> list = new ArrayList<>();
+			Map<Integer, Colecao> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Colecao col = map.get(rs.getInt("id"));
+				if (col == null) {
+					col = instantiateColecao(rs);
+					map.put(rs.getInt("id"), col);
+				}
+
+				Carrinho obj = instantiateCarrinho(rs, col);
+				list.add(obj);
+			}
+			return list;
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 
 	private Carrinho instantiateCarrinho(ResultSet rs, Colecao col) throws SQLException {
 		Carrinho car = new Carrinho();

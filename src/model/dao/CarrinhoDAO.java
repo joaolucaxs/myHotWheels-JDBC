@@ -18,4 +18,6 @@ public interface CarrinhoDAO {
 
 	List<Carrinho> findAll();
 
+	List<Carrinho> showCarsByIdCollection(Integer id);
+
 }

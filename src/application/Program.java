@@ -24,7 +24,7 @@ public class Program {
 		CarrinhoDAO carrinhoDAO = FactoryDAO.createCarrinhoDAO();
 
 		System.out.println("\n==== TEST 1: carrinho findById ====");
-		Carrinho carrinho = carrinhoDAO.findById(1);
+		Carrinho carrinho = carrinhoDAO.findById(4);
 		System.out.println(carrinho);
 
 		// ----------------------------------------------------------------------------//
@@ -76,11 +76,21 @@ public class Program {
 			System.out.println(colecao2);
 		}
 		
+		// ----------------------------------------------------------------------------//
+
 		System.out.println("\n==== TEST 5: carrinho findAll ====");
 		List<Carrinho> listCarrinho = new ArrayList<>();
 		listCarrinho = carrinhoDAO.findAll();
 		for (Carrinho carrinho2 : listCarrinho) {
 			System.out.println(carrinho2);
+		}
+		
+		// ----------------------------------------------------------------------------//
+
+		System.out.println("\n==== TEST 6: colecao showCarsByIdColection ====");
+		listCarrinho = carrinhoDAO.showCarsByIdCollection(2);
+		for (Carrinho carrinho2 : listCarrinho) {
+			System.out.println(carrinho2.toString());
 		}
 
 	}

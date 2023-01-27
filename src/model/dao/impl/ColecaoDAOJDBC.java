@@ -139,17 +139,17 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 			rs = st.executeQuery();
 
 			List<Colecao> list = new ArrayList<>();
-			Map<Integer,Colecao> map = new HashMap<>();
+			Map<Integer, Colecao> map = new HashMap<>();
 
 			while (rs.next()) {
-				
+
 				Colecao col = map.get(rs.getInt("id"));
-				
-				if(col==null) {
+
+				if (col == null) {
 					col = instantiateColecao(rs);
 					map.put(rs.getInt("id"), col);
 				}
-				
+
 				list.add(col);
 			}
 			return list;

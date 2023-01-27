@@ -15,6 +15,6 @@ public interface ColecaoDAO {
 	Colecao findById(Integer id);
 
 	Colecao findByName(String nome);
-
+	
 	List<Colecao> findAll();
 }
