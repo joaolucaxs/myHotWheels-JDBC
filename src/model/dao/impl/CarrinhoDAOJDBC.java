@@ -57,7 +57,27 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 
 	@Override
 	public void update(Carrinho obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+
+		try {
+			String sql = "UPDATE carrinho "
+					+ "SET carrinho.nome = ?, carrinho.posicao_Colecao = ?, carrinho.descricao = ?, carrinho.colecaoId = ? "
+					+ "WHERE id = ?";
+
+			st = conn.prepareStatement(sql);
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getPosicao_Colecao());
+			st.setString(3, obj.getDescricao());
+			st.setInt(4, obj.getColecao().getId());
+			st.setInt(5, obj.getId());
+
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
@@ -73,7 +93,9 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT myhotwheels.carrinho.*, myhotwheels.colecao.nome as ColName FROM myhotwheels.carrinho "
+			String sql = "SELECT myhotwheels.carrinho.*, "
+					+ "myhotwheels.colecao.nome as ColName, myhotwheels.colecao.id as ColId, myhotwheels.colecao.tamanho as ColTamanho "
+					+ "FROM myhotwheels.carrinho "
 					+ "JOIN myhotwheels.colecao ON myhotwheels.carrinho.colecaoId = myhotwheels.colecao.id WHERE myhotwheels.carrinho.id = ? ";
 
 			// Sempre usar o "as" para renomear colunas se essas colunas forem iguais, pq no
@@ -120,8 +142,10 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 
 	private Colecao instantiateColecao(ResultSet rs) throws SQLException {
 		Colecao col = new Colecao();
+		col.setId(rs.getInt("ColId"));
 		col.setNome(rs.getString("ColName"));
-		System.out.println(col);
+		col.setId(rs.getInt("ColTamanho"));
+
 		return col;
 	}
 

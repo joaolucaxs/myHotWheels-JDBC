@@ -24,8 +24,7 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 		PreparedStatement st = null;
 
 		try {
-			String sql = "INSERT INTO colecao " + "(nome, tamanho) "
-					+ "VALUES (?, ?) ";
+			String sql = "INSERT INTO colecao " + "(nome, tamanho) " + "VALUES (?, ?) ";
 
 			st = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
@@ -54,7 +53,24 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 
 	@Override
 	public void update(Colecao obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+
+		try {
+			String sql = "UPDATE colecao " + "SET colecao.nome = ?, colecao.tamanho = ? "
+					+ "WHERE id = ? ";
+
+			st = conn.prepareStatement(sql);
+			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getTamanho());
+			st.setInt(3, obj.getId());
+
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
