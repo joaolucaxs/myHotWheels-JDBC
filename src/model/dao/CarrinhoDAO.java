@@ -3,7 +3,6 @@ package model.dao;
 import java.util.List;
 
 import model.entities.Carrinho;
-import model.entities.Colecao;
 
 public interface CarrinhoDAO {
 
@@ -18,7 +17,5 @@ public interface CarrinhoDAO {
 	Carrinho findByName(String nome);
 
 	List<Carrinho> findAll();
-
-	List<Carrinho> findByColecao(Colecao colecao);
 
 }

@@ -74,7 +74,7 @@ public class Carrinho implements Serializable {
 	@Override
 	public String toString() {
 		return "Carrinho [id=" + id + ", nome=" + nome + ", posicao_Colecao=" + posicao_Colecao + ", descricao="
-				+ descricao + ", colecao=" + colecao + "]";
+				+ descricao + ", colecao=" + colecao.getNome() + "]";
 	}
 
 	@Override
