@@ -34,3 +34,5 @@ As classes CarrinhoDAOJDBC e ColecaoDAOJDBC possuem as implementações dos mét
 
 A classe DB.java que peguei do professor Nélio Alves do curso de Java 2020 na Udemy fornece uma conexão com um banco de dados. Ele carrega as configurações de conexão a partir do arquivo "db.properties" (usando o DriverManager do mySQL que baixei e integrei ao projeto). A função getConnection() retorna a conexão existente ou cria uma nova se ainda não existir. A função closeConnection() fecha a conexão. As funções closeStatement() e closeResultSet() servem para fechar os objetos Statement e ResultSet. A classe tambem vai lidar com as exceptions lançadas, jogando uma exception da classe DBException se algo der errado.
  
+ 
+O SQL inicial que usei se encontra no arquivo scriptSQLinit.txt
