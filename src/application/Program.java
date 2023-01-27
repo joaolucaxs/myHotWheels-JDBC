@@ -87,11 +87,12 @@ public class Program {
 		
 		// ----------------------------------------------------------------------------//
 
-		System.out.println("\n==== TEST 6: colecao showCarsByIdColection ====");
+		System.out.println("\n==== TEST 6: carrinho showCarsByIdColection ====");
 		listCarrinho = carrinhoDAO.showCarsByIdCollection(2);
 		for (Carrinho carrinho2 : listCarrinho) {
 			System.out.println(carrinho2.toString());
 		}
+		
 
 	}
 

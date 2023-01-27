@@ -14,8 +14,6 @@ public interface CarrinhoDAO {
 
 	Carrinho findById(Integer id);
 
-	Carrinho findByName(String nome);
-
 	List<Carrinho> findAll();
 
 	List<Carrinho> showCarsByIdCollection(Integer id);

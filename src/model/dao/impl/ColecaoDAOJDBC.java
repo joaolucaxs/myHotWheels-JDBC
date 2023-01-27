@@ -121,11 +121,6 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 		}
 	}
 
-	@Override
-	public Colecao findByName(String nome) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Colecao> findAll() {

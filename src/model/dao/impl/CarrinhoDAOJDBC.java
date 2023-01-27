@@ -136,11 +136,6 @@ public class CarrinhoDAOJDBC implements CarrinhoDAO {
 		}
 	}
 
-	@Override
-	public Carrinho findByName(String nome) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Carrinho> findAll() {

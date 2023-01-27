@@ -13,8 +13,6 @@ public interface ColecaoDAO {
 	void deleteById(Integer id);
 
 	Colecao findById(Integer id);
-
-	Colecao findByName(String nome);
 	
 	List<Colecao> findAll();
 }
