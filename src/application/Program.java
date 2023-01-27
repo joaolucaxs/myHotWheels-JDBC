@@ -41,7 +41,7 @@ public class Program {
 		// ----------------------------------------------------------------------------//
 
 		System.out.println("\n==== TEST 3: colecao update ====");
-		colecao = colecaoDAO.findById(3);
+		colecao = colecaoDAO.findById(4);
 		colecao.setNome("COLECAO QUALQUER");
 		colecao.setTamanho(10);
 		colecaoDAO.update(colecao);
@@ -51,8 +51,18 @@ public class Program {
 		System.out.println("\n==== TEST 3: carrinho update ====");
 		carrinho = carrinhoDAO.findById(1);
 		carrinho.setNome("2019 AUDI R8 SPYDER");
-		carrinho.setColecao(new Colecao(1,null,null));
+		carrinho.setColecao(new Colecao(1, null, null));
 		carrinhoDAO.update(carrinho);
+
+		// ----------------------------------------------------------------------------//
+
+		System.out.println("\n==== TEST 4: colecao delete ====");
+		colecaoDAO.deleteById(3);
+
+		// ----------------------------------------------------------------------------//
+
+		System.out.println("\n==== TEST 4: carrinho delete ====");
+		carrinhoDAO.deleteById(10);
 
 	}
 

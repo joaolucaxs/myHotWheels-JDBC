@@ -56,8 +56,7 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 		PreparedStatement st = null;
 
 		try {
-			String sql = "UPDATE colecao " + "SET colecao.nome = ?, colecao.tamanho = ? "
-					+ "WHERE id = ? ";
+			String sql = "UPDATE colecao " + "SET colecao.nome = ?, colecao.tamanho = ? " + "WHERE id = ? ";
 
 			st = conn.prepareStatement(sql);
 			st.setString(1, obj.getNome());
@@ -76,7 +75,21 @@ public class ColecaoDAOJDBC implements ColecaoDAO {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+
+		try {
+			String sql = "DELETE FROM colecao WHERE Id = ?";
+
+			st = conn.prepareStatement(sql);
+			st.setInt(1, id);
+
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
 
 	}
 
