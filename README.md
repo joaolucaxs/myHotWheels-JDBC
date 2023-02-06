@@ -3,6 +3,12 @@ Projeto pessoal para guardar meus carrinhos e minhas coleções da HOTWHEELS usa
 
 A classe Carrinho possui a modelagem da entidade que irá representar os carrinhos HW e a classe Colecao possui a modelagem da entidade irá representar as coleções HW.
 
+Modelo de Dominio Inicial:
+
+
+![image](https://user-images.githubusercontent.com/55036585/217065041-7ea6e23e-3f43-47e9-8283-aea0752fb00f.png)
+
+
 A interface CarrinhoDAO possui os seguintes métodos:
 
   void insert(Carrinho obj); -> Insere um carrinho
@@ -36,3 +42,8 @@ A classe DB.java que peguei do professor Nélio Alves do curso de Java 2020 na U
  
  
 O SQL inicial que usei se encontra no arquivo scriptSQLinit.txt
+
+Criação das tabelas manualmente:
+
+![image](https://user-images.githubusercontent.com/55036585/217065186-9b6ae39a-fab9-4cfe-9569-8108345cd32c.png)
+
